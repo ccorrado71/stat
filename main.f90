@@ -1,6 +1,6 @@
    program statistic
    use stat
-   integer, parameter     :: NDATA = 1000
+   integer, parameter     :: NDATA = 10000
    real, dimension(NDATA) :: x
    real                   :: ave,var
 !
