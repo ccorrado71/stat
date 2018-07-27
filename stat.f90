@@ -2,6 +2,11 @@
 
  implicit none
 
+ type stat_type
+   real :: ave
+   real :: var
+ end type stat_type
+
  CONTAINS
 
    subroutine avevar(data,ave,var)
