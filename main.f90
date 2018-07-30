@@ -1,7 +1,8 @@
    program statistic
    use stat
-   real, dimension(1000) :: x
-   real                  :: ave,var
+   integer, parameter     :: NDATA = 10000
+   real, dimension(NDATA) :: x
+   real                   :: ave,var
 !
    call random_number(x)
    call avevar(x,ave,var)
