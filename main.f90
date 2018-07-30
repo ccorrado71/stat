@@ -5,6 +5,6 @@
 !
    call random_number(x)
    call avevar(x,ave,var)
-   write(0,*)'Average: ',ave,' Variance: ',var
+   write(0,'(a,f10.3,a,f10.3)')'Average: ',ave,' Variance: ',var
 !
    end program statistic
