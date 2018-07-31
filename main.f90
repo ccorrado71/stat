@@ -6,6 +6,6 @@
 !
    call random_number(x)
    call avevar(x,ave,var)
-   write(0,*)'Average: ',ave,' Variance: ',var   ! da sistemare
+   write(0,*)'Average: ',ave,' Variance: ',var   ! only for testing branch
 !
    end program statistic
