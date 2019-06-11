@@ -1,4 +1,5 @@
    program statistic
+   use iso_fortran_env, only: stdout => OUTPUT_UNIT
    use stat
    implicit none
    integer, parameter     :: NDATA = 1000000
@@ -18,6 +19,7 @@
    do i = 1, size(x)
       call statt%add(real(x(i),DP))
    enddo
-   write(0,'(a,f20.6,a,f20.6)')'Average: ',statt%mean(),' Variance: ',statt%variance()
+   write(stdout,'(a,i0)')'N: ',statt%num()
+   write(stdout,'(a,f20.6,a,f20.6)')'Average: ',statt%mean(),' Variance: ',statt%variance()
 !
    end program statistic

@@ -17,6 +17,7 @@
    procedure, public :: add => add_variable
    procedure, public :: mean => get_meanvalue
    procedure, public :: variance => get_variance
+   procedure, public :: num => get_number
 
  end type stat_type
 
@@ -56,6 +57,13 @@
    class(stat_type), intent(in) :: stat
    get_variance = (stat%ex2 - (stat%ex*stat%ex)/stat%n) / (stat%n - 1)
    end function get_variance
+
+  !--------------------------------------------------------------------
+
+   integer function get_number(stat)
+   class(stat_type), intent(in) :: stat
+   get_number = stat%n
+   end function get_number
 
   !--------------------------------------------------------------------
 
