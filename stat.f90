@@ -3,9 +3,10 @@
 
  implicit none
 
- type stat_type(real_kind)
+ integer, parameter, private :: real_kind = DP
+
+ type stat_type
    private
-   integer, kind   :: real_kind
    integer         :: n
    real(real_kind) :: ex,ex2
    real(real_kind) :: k
@@ -23,7 +24,7 @@
 
 
    subroutine init_stat(stat)
-   class(stat_type(DP)), intent(inout) :: stat
+   class(stat_type), intent(inout) :: stat
    stat%n = 0
    stat%ex = 0
    stat%ex2 = 0
@@ -32,9 +33,9 @@
   !--------------------------------------------------------------------
 
    subroutine add_variable(stat,x)
-   class(stat_type(DP)), intent(inout) :: stat
-   real(DP), intent(in)                :: x
-   real(DP)                            :: diff
+   class(stat_type), intent(inout) :: stat
+   real(real_kind), intent(in)                :: x
+   real(real_kind)                            :: diff
    if (stat%n == 0) stat%k = x
    stat%n = stat%n + 1
    diff = x-stat%k
@@ -44,15 +45,15 @@
 
   !--------------------------------------------------------------------
 
-   real(DP) function get_meanvalue(stat)
-   class(stat_type(DP)), intent(in) :: stat
+   real(real_kind) function get_meanvalue(stat)
+   class(stat_type), intent(in) :: stat
    get_meanvalue = stat%k + stat%ex/stat%n 
    end function get_meanvalue
 
   !--------------------------------------------------------------------
 
-   real(DP) function get_variance(stat)
-   class(stat_type(DP)), intent(in) :: stat
+   real(real_kind) function get_variance(stat)
+   class(stat_type), intent(in) :: stat
    get_variance = (stat%ex2 - (stat%ex*stat%ex)/stat%n) / (stat%n - 1)
    end function get_variance
 

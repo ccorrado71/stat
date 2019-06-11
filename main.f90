@@ -4,7 +4,7 @@
    integer, parameter     :: NDATA = 1000000
    real, dimension(NDATA) :: x
    real                   :: ave,var
-   type(stat_type(DP))        :: statt
+   type(stat_type)        :: statt
    integer                :: i
 !
    call random_number(x)
