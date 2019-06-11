@@ -1,13 +1,62 @@
  MODULE STAT
+ USE type_constants, only: DP
 
  implicit none
 
- type stat_type
-   real :: ave
-   real :: var
+ type stat_type(real_kind)
+   private
+   integer, kind   :: real_kind
+   integer         :: n
+   real(real_kind) :: ex,ex2
+   real(real_kind) :: k
+
+ contains
+
+   procedure, public :: init => init_stat
+   procedure, public :: add => add_variable
+   procedure, public :: mean => get_meanvalue
+   procedure, public :: variance => get_variance
+
  end type stat_type
 
  CONTAINS
+
+
+   subroutine init_stat(stat)
+   class(stat_type(DP)), intent(inout) :: stat
+   stat%n = 0
+   stat%ex = 0
+   stat%ex2 = 0
+   end subroutine init_stat
+
+  !--------------------------------------------------------------------
+
+   subroutine add_variable(stat,x)
+   class(stat_type(DP)), intent(inout) :: stat
+   real(DP), intent(in)                :: x
+   real(DP)                            :: diff
+   if (stat%n == 0) stat%k = x
+   stat%n = stat%n + 1
+   diff = x-stat%k
+   stat%ex = stat%ex + diff
+   stat%ex2 = stat%ex2 + diff*diff
+   end subroutine add_variable
+
+  !--------------------------------------------------------------------
+
+   real(DP) function get_meanvalue(stat)
+   class(stat_type(DP)), intent(in) :: stat
+   get_meanvalue = stat%k + stat%ex/stat%n 
+   end function get_meanvalue
+
+  !--------------------------------------------------------------------
+
+   real(DP) function get_variance(stat)
+   class(stat_type(DP)), intent(in) :: stat
+   get_variance = (stat%ex2 - (stat%ex*stat%ex)/stat%n) / (stat%n - 1)
+   end function get_variance
+
+  !--------------------------------------------------------------------
 
    subroutine avevar(data,ave,var)
 !
